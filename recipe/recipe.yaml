@@ -28,6 +28,8 @@ outputs:
       version: ${{ abi_version }}
     build:
       noarch: generic
+      # Build noarch outputs once; cross-compiled jobs cannot run their tests
+      skip: not (linux and x86_64)
     requirements:
       run_exports:
         - nanobind-abi ==${{ abi_version }}
@@ -51,6 +53,8 @@ outputs:
       version: ${{ version }}
     build:
       noarch: python
+      # Build noarch outputs once; cross-compiled jobs cannot run their tests
+      skip: not (linux and x86_64)
       script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
     requirements:
       host:
