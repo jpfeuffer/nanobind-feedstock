@@ -96,6 +96,11 @@ outputs:
         env:
           CMAKE_GENERATOR: Ninja
         content:
+          # Ninja rejects the Visual Studio platform and toolset set by the Windows activation
+          - if: win
+            then:
+              - set "CMAKE_GENERATOR_PLATFORM="
+              - set "CMAKE_GENERATOR_TOOLSET="
           - cd nanobind-backend
           - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
     requirements:
