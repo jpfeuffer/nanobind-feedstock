@@ -120,6 +120,11 @@ outputs:
         - scikit-build-core
       run:
         - python
+        # The backend owns the internals of split-mode extensions, so it must
+        # share the internals version of regular nanobind-abi builds.
+        - nanobind-abi ==${{ abi_version }}
+      run_exports:
+        - ${{ pin_subpackage("nanobind-backend", upper_bound="x") }}
     tests:
       - python:
           imports:
